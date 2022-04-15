@@ -1,32 +1,35 @@
-import re; # Import regex, because you didn't say I couldn't 😉
+import re; # Import regex, because you didn't say I couldn't
 
 # Capital letter bools is a dumb implimentation
 true = True; # True to true
 false = False; # False to false
 
-# Good code doesn't need to be commented, bad/ hard to read code should always be commented.
+# Good code doesn't always need to be commented, bad/ hard to read code should always be commented.
 # But the requirements said to comment to explain things. So here we are with an overcommented file
-# Mostly because the requirements are fairly vague on commenting requirements
+# Mostly because the assignment is fairly vague on commenting requirements
+
+# The relevant functions also have an underscore in front to show they're used internally, consistant with python proffesional naming standards.
 
 # Ternary function
-def ternary(condition: bool, trueResult: any, falseResult: any) -> any:
+def _ternary(condition: bool, trueResult: any, falseResult: any) -> any:
 	"""
-	Returns the result of the ternary operator
+	Returns the result of the Ternary operator
+	Seeing as python doesn't have one, it was best to implement a version of it myself
 	"""
 	if(condition):
 		return trueResult;
 	else:
 		return falseResult;
 
+
+# Using a class helps for dynamically calling whatever letter function we want instead of checking for any specific letter using a bunch of if statements.
+# It also helps for the future if we want to add more letters, or potentially symbols.
 class GetLetterString:
 	"""
 	Class for creating letters & words.
+	Does all the main work, also written as a class so that it can be imported and used in other files.
 	"""
-
-	# Using a class helps for dynamically calling whatever letter function we want instead of checking for any specific letter using a bunch of if statements.
-	# It also helps for the future if we want to add more letters or even potentially symbols.
-	# The letter functions also have an underscore in front to show they're used internally, consistant with python naming standards.
-
+	
 	# __Init__ sets up the class
 	def __init__(this, word: str, fStr: str = "*", eStr: str = " ",  delimiter: str = "\n") -> None:
 		this.word = word;
@@ -39,6 +42,7 @@ class GetLetterString:
 			this.singleLetter = true;
 		else:
 			this.singleLetter = false;
+			
 
 	# All the letter functions work on the same principle:
 	# 1. Create an array
@@ -51,6 +55,8 @@ class GetLetterString:
 	# 7. Repeat steps 2-6 until the array length equals 7
 	# 8. Join together the array's values into a full letter string with a line break (\n)
 	# 9. Return the full letter string
+
+	# In short, they build each letter character by character, line by line.
 
 	# Function for the letter C
 	def _C(this) -> str:
@@ -66,8 +72,11 @@ class GetLetterString:
 		  0123456
 		"""
 		letterArray = [];
+		# First loop handles what "line" we're on
 		while(7 > len(letterArray)):
 			lineString = "";
+
+			# Second loop handles what "column" we're on
 			while(7 > len(lineString)):
 				arrayLength = len(letterArray);
 				stringLength = len(lineString);
@@ -79,17 +88,17 @@ class GetLetterString:
 				
 				# Line 0 & 6
 				if(arrayLength in {0, 6}):
-					lineString += ternary((stringLength in {2, 3, 4}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {2, 3, 4}), this.fStr, this.eStr);
 					continue;
 				
 				# Line 1 & 5
 				if(arrayLength in {1, 5}):
-					lineString += ternary((stringLength in {1, 5}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {1, 5}), this.fStr, this.eStr);
 					continue;
 
 				# Line 2, 3 & 4
 				if(arrayLength in {2, 3, 4}):
-					lineString += ternary((stringLength in {1}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {1}), this.fStr, this.eStr);
 					continue;
 
 			# End of while loop
@@ -113,8 +122,11 @@ class GetLetterString:
 		  0123456
 		"""
 		letterArray = [];
+		# First loop handles what "line" we're on
 		while(7 > len(letterArray)):
 			lineString = "";
+
+			# Second loop handles what "column" we're on
 			while(7 > len(lineString)):
 				arrayLength = len(letterArray);
 				stringLength = len(lineString);
@@ -126,12 +138,12 @@ class GetLetterString:
 				
 				# Line 0 & 6
 				if(arrayLength in {0, 6}):
-					lineString += ternary((stringLength in {2, 3, 4}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {2, 3, 4}), this.fStr, this.eStr);
 					continue;
 				
 				# Line 1, 2, 3, 4 & 6
 				if(arrayLength in {1, 2, 3, 4, 5}):
-					lineString += ternary((stringLength in{1, 5}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in{1, 5}), this.fStr, this.eStr);
 					continue;
 
 			# End of while loop
@@ -155,8 +167,11 @@ class GetLetterString:
 		  0123456
 		"""
 		letterArray = [];
+		# First loop handles what "line" we're on
 		while(7 > len(letterArray)):
 			lineString = "";
+
+			# Second loop handles what "column" we're on
 			while(7 > len(lineString)):
 				arrayLength = len(letterArray);
 				stringLength = len(lineString);
@@ -168,12 +183,12 @@ class GetLetterString:
 				
 				# Line 0, 1, 2, 3, 4 & 5
 				if(arrayLength in {0, 1, 2, 3, 4, 5}):
-					lineString += ternary((stringLength in {1}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {1}), this.fStr, this.eStr);
 					continue;
 				
 				# Line 6
 				if(arrayLength in {6}):
-					lineString += ternary((stringLength in {1, 2, 3, 4, 5}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {1, 2, 3, 4, 5}), this.fStr, this.eStr);
 					continue;
 
 			# End of while loop
@@ -197,8 +212,11 @@ class GetLetterString:
 		  0123456
 		"""
 		letterArray = [];
+		# First loop handles what "line" we're on
 		while(7 > len(letterArray)):
 			lineString = "";
+
+			# Second loop handles what "column" we're on
 			while(7 > len(lineString)):
 				arrayLength = len(letterArray);
 				stringLength = len(lineString);
@@ -210,17 +228,17 @@ class GetLetterString:
 				
 				# Line 0 & 6
 				if(arrayLength in {0, 6}):
-					lineString += ternary((stringLength in {1, 2, 3}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {1, 2, 3}), this.fStr, this.eStr);
 					continue;
 				
 				# Line 1 & 5
 				if(arrayLength in {1, 5}):
-					lineString += ternary((stringLength in {1, 4}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {1, 4}), this.fStr, this.eStr);
 					continue;
 
 				# Line 2, 3 & 4
 				if(arrayLength in {2, 3, 4}):
-					lineString += ternary((stringLength in {1, 5}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {1, 5}), this.fStr, this.eStr);
 					continue;
 
 			# End of while loop
@@ -244,8 +262,11 @@ class GetLetterString:
 		  0123456
 		"""
 		letterArray = [];
+		# First loop handles what "line" we're on
 		while(7 > len(letterArray)):
 			lineString = "";
+
+			# Second loop handles what "column" we're on
 			while(7 > len(lineString)):
 				arrayLength = len(letterArray);
 				stringLength = len(lineString);
@@ -257,12 +278,12 @@ class GetLetterString:
 				
 				# Line 0, 1, 2, 4, 5 & 6
 				if(arrayLength in {0, 1, 2, 4, 5, 6}):
-					lineString += ternary((stringLength in {1, 5}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {1, 5}), this.fStr, this.eStr);
 					continue;
 				
 				# Line 3
 				if(arrayLength in {3}):
-					lineString += ternary((stringLength in {1, 2, 3, 4, 5}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {1, 2, 3, 4, 5}), this.fStr, this.eStr);
 					continue;
 
 			# End of while loop
@@ -286,8 +307,11 @@ class GetLetterString:
 		  0123456
 		"""
 		letterArray = [];
+		# First loop handles what "line" we're on
 		while(7 > len(letterArray)):
 			lineString = "";
+
+			# Second loop handles what "column" we're on
 			while(7 > len(lineString)):
 				arrayLength = len(letterArray);
 				stringLength = len(lineString);
@@ -299,12 +323,12 @@ class GetLetterString:
 				
 				# Line 0
 				if(arrayLength in {0}):
-					lineString += ternary((stringLength in {1, 2, 3, 4, 5}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {1, 2, 3, 4, 5}), this.fStr, this.eStr);
 					continue;
 				
 				# Line 1, 2, 3, 4, 5 & 6
 				if(arrayLength in {1, 2, 3, 4, 5, 6}):
-					lineString += ternary((stringLength in {3}), this.fStr, this.eStr);
+					lineString += _ternary((stringLength in {3}), this.fStr, this.eStr);
 					continue;
 			
 			# End of while loop
@@ -330,6 +354,8 @@ class GetLetterString:
 		for string in array:
 			obj[lineNumber] += string;
 			lineNumber += 1;
+	
+		# End of for loop
 
 
 	# Function to call each letter function in order, then add each objects property to a string
@@ -356,6 +382,8 @@ class GetLetterString:
 
 			this._buildLetter(wordObject, letterString); # Taking advantage of objects being a memory reference
 		
+		# End of for loop
+		
 		return this.delimiter.join(wordObject.values());
 
 
@@ -366,10 +394,10 @@ def main() -> None:
 	readabilityMode = false;
 
 	# eStr is the string used to represent an empty space
-	eStr = ternary(readabilityMode, "⬛", " ");
+	eStr = _ternary(readabilityMode, "⬛", " ");
 
 	# fStr is the string used to represent a filled space
-	fStr = ternary(readabilityMode, "⬜", "*");
+	fStr = _ternary(readabilityMode, "⬜", "*");
 
 	# delimiter is the string used to separate each line of the output
 	delimiter = "\n";
@@ -397,7 +425,7 @@ def main() -> None:
 			print("Error: Input can only contain the letters: C, O, L, D, H & T");
 			continue; # Reset
 
-		inputData = inputData.upper();
+		inputData = inputData.upper(); # Just to make sure the letters are indeed uppercase
 		
 		# All checks passed, build the word
 		word = GetLetterString(inputData, fStr, eStr, delimiter).buildWord();
