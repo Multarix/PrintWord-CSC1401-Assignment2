@@ -21,7 +21,6 @@ def _ternary(condition: bool, trueResult: any, falseResult: any) -> any:
 	else:
 		return falseResult;
 
-
 # Using a class helps for dynamically calling whatever letter function we want instead of checking for any specific letter using a bunch of if statements.
 # It also helps for the future if we want to add more letters, or potentially symbols.
 class GetLetterString:
@@ -29,7 +28,6 @@ class GetLetterString:
 	Class for creating letters & words.
 	Does all the main work, also written as a class so that it can be imported and used in other files.
 	"""
-	
 	# __Init__ sets up the class
 	def __init__(this, word: str, fStr: str = "*", eStr: str = " ",  delimiter: str = "\n") -> None:
 		this.word = word;
@@ -42,7 +40,7 @@ class GetLetterString:
 			this.singleLetter = true;
 		else:
 			this.singleLetter = false;
-			
+
 
 	# All the letter functions work on the same principle:
 	# 1. Create an array
@@ -69,7 +67,7 @@ class GetLetterString:
 		4' *     '
 		5' *   * '
 		6'  ***  ' 
-		  0123456
+		x 0123456
 		"""
 		letterArray = [];
 		# First loop handles what "line" we're on
@@ -119,7 +117,7 @@ class GetLetterString:
 		4' *   * '
 		5' *   * '
 		6'  ***  ' 
-		  0123456
+		x 0123456
 		"""
 		letterArray = [];
 		# First loop handles what "line" we're on
@@ -164,7 +162,7 @@ class GetLetterString:
 		4' *     '
 		5' *     '
 		6' ***** ' 
-		  0123456
+		x 0123456
 		"""
 		letterArray = [];
 		# First loop handles what "line" we're on
@@ -209,7 +207,7 @@ class GetLetterString:
 		4' *   * '
 		5' *  *  '
 		6' ***   ' 
-		  0123456
+		x 0123456
 		"""
 		letterArray = [];
 		# First loop handles what "line" we're on
@@ -259,7 +257,7 @@ class GetLetterString:
 		4' *   * '
 		5' *   * '
 		6' *   * ' 
-		  0123456
+		x 0123456
 		"""
 		letterArray = [];
 		# First loop handles what "line" we're on
@@ -304,7 +302,7 @@ class GetLetterString:
 		4'   *   '
 		5'   *   '
 		6'   *   '
-		  0123456
+		x 0123456
 		"""
 		letterArray = [];
 		# First loop handles what "line" we're on
@@ -354,7 +352,6 @@ class GetLetterString:
 		for string in array:
 			obj[lineNumber] += string;
 			lineNumber += 1;
-	
 		# End of for loop
 
 
@@ -366,12 +363,12 @@ class GetLetterString:
 		(Pun intended) the entire word together.
 		"""
 
-		# If singleLetter is true, then we only want to build that letter
+		# If singleLetter is true, then we want to skip straight to building that letter
 		# Technically speeds up processing by not having to call buildLetter
 		# Also this is requirement as per the assignment
 		if(this.singleLetter):
 			letterFunction = getattr(this, f"_{this.word}");
-			return letterFunction()		
+			return letterFunction();
 
 		wordObject = { 0: "", 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" };
 		# For each letter in the word, find the appropriate function
@@ -381,9 +378,7 @@ class GetLetterString:
 			letterString = letterFunction();
 
 			this._buildLetter(wordObject, letterString); # Taking advantage of objects being a memory reference
-		
 		# End of for loop
-		
 		return this.delimiter.join(wordObject.values());
 
 
@@ -393,14 +388,9 @@ def main() -> None:
 	# (though it might actually make it harder if your console output doesn't support emojis)
 	readabilityMode = false;
 
-	# eStr is the string used to represent an empty space
-	eStr = _ternary(readabilityMode, "⬛", " ");
-
-	# fStr is the string used to represent a filled space
-	fStr = _ternary(readabilityMode, "⬜", "*");
-
-	# delimiter is the string used to separate each line of the output
-	delimiter = "\n";
+	eStr = _ternary(readabilityMode, "⬛", " "); # eStr is the string used to represent an empty space
+	fStr = _ternary(readabilityMode, "⬜", "*"); # fStr is the string used to represent a filled space
+	delimiter = "\n"; # delimiter is the string used to separate each line
 
 	# While(true) is considered bad, recursion would probably have been better
 	# Buuuuut we could possibly run into a Stack Overflow error
@@ -420,9 +410,9 @@ def main() -> None:
 
 		# If the word contains any characters other than "COLDHT", print an error and go to next iteration
 		# Was specified that this is case sensitive, so only capitals work - Using Regex to make life easy.
-		match = re.search("[^COLDHT]", inputData);
-		if(match):
-			print("Error: Input can only contain the letters: C, O, L, D, H & T");
+		match = re.search("[^COLDHT]", inputData); # [^COLDHT]: Match any character that is not any of those expressed here
+		if(match): # Match will be truthy if there is a match
+			print("Error: Input can only contain the uppercase letters: C, O, L, D, H & T");
 			continue; # Reset
 
 		inputData = inputData.upper(); # Just to make sure the letters are indeed uppercase
