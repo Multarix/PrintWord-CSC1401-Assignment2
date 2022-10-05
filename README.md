@@ -2,3 +2,5 @@
 Prints words in an asscii 7x7 grid per letter
 
 Created for the University Subject CSC1401 (Foundation Programming) in 2022.
+
+* Scored a 100% for requirements
